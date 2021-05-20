@@ -10,6 +10,7 @@ function PokemonList() {
   const [pokemonsData, setPokemonsData] = useState([]);
 
   const [getPokemons, { loading, error, data }] = useLazyQuery(GET_POKEMONS, {
+    fetchPolicy: "cache-and-network",
     variables: { limit: limit, offset: 0 },
     onCompleted(data) {
       setPokemonsData(data?.pokemons?.results);
@@ -26,7 +27,7 @@ function PokemonList() {
 
       {loading && <div className={Loader}></div>}
 
-      {pokemonsData.length>0 && (
+      {pokemonsData.length > 0 && (
         <div className={Body}>
           <p>Showing {pokemonsData?.length} Pokemons</p>
           <div className={PokeList}>
@@ -34,7 +35,11 @@ function PokemonList() {
               <PokemonCard image={pokemon.image} name={pokemon.name} />
             ))}
           </div>
-          <button className={Button} disabled={loading} onClick={() => setLimit(limit + 9)}>
+          <button
+            className={Button}
+            disabled={loading}
+            onClick={() => setLimit(limit + 9)}
+          >
             {loading ? "Please wait" : "Show more"}
           </button>
         </div>

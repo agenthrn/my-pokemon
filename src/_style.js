@@ -35,6 +35,11 @@ export const Heading = css`
   font-size: 20px;
 `;
 
+export const SubHeading = css`
+  color: #03ac0e;
+  font-size: 16px;
+`;
+
 export const MenuLink = css`
   display: block;
   color: rgba(49, 53, 59, 0.68);
@@ -83,6 +88,7 @@ export const PokeCardTitle = css`
   display: block;
   font-size: 16px;
   color: #03ac0e;
+  text-decoration: none;
 `;
 
 export const Button = css`
@@ -98,5 +104,41 @@ export const Button = css`
     border: 0;
     background-color: #03ac0e;
     color: #ffffff;
+  }
+`;
+
+export const Tag = css`
+  color: #03ac0e;
+  background-color: #ffffff;
+  border: 1px solid #03ac0e;
+  border-radius: 16px;
+  margin: 0 5px 5px 0;
+  padding: 5px;
+  font-size: 11px;
+`;
+
+export const PokeDetailSection = css`
+  display: grid;
+  margin: 0 0 48px 0;
+  grid-template-columns: repeat(1, 1fr);
+  text-align: left;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 550px) {
+    grid-template-columns: 1fr 2fr;
+  }
+  gap: 8px;
+`;
+
+export const TagFlex = css`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+export const Sprites = css`
+  width: 100px;
+  @media (min-width: 300px) {
+    width: 300px;
   }
 `;
