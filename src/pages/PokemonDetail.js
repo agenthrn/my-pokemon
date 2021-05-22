@@ -6,7 +6,7 @@ import {
   SubHeading,
   Loader,
   Body,
-  Button,
+  CatchButton,
   PokeDetailSection,
   Tag,
   TagFlex,
@@ -15,25 +15,34 @@ import {
 import { GET_POKEMON } from "../_graphqlQuery";
 
 import { useQuery } from "@apollo/client";
+import CatchModal from "../components/CatchModal";
 
 function PokemonDetail() {
   let { name } = useParams();
 
   const [catchPoke, setCatchPoke] = useState(false);
+  const [catchProcess, setCatchProcess] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const { loading, error, data } = useQuery(GET_POKEMON, {
     fetchPolicy: "cache-and-network",
     variables: { name: name },
   });
 
+  const hideModal = () => {
+    setOpenModal(false);
+  };
+
   const catchPokemon = () => {
-    setCatchPoke(true);
+    setCatchProcess(true);
     if (Math.random() >= 0.5) {
-      setCatchPoke(false);
-      return alert("Berhasil");
+      setCatchProcess(false);
+      setCatchPoke(true);
+      setOpenModal(true);
     } else {
+      setCatchProcess(false);
       setCatchPoke(false);
-      return alert("Gagal");
+      setOpenModal(true);
     }
   };
 
@@ -72,14 +81,20 @@ function PokemonDetail() {
             </div>
           </div>
           <button
-            className={Button}
-            disabled={catchPoke}
+            className={CatchButton}
+            disabled={catchProcess}
             onClick={() => catchPokemon()}
           >
-            {catchPoke ? "Please wait" : "Catch!"}
+            {catchProcess ? "Please wait" : "Catch!"}
           </button>
         </div>
       )}
+      <CatchModal
+        show={openModal}
+        handleClose={hideModal}
+        status={catchPoke}
+        pokeData={data?.pokemon}
+      />
     </div>
   );
 }

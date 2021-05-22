@@ -26,7 +26,7 @@ export const AppName = css`
 
 export const Body = css`
   max-width: 900px;
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 10px;
 `;
 
@@ -36,7 +36,7 @@ export const Heading = css`
 `;
 
 export const SubHeading = css`
-  color: #03ac0e;
+  color: rgb(49, 53, 59, 0.96);
   font-size: 16px;
 `;
 
@@ -100,21 +100,42 @@ export const Button = css`
   padding: 0px 16px;
   font-weight: 600;
   font-size: 16px;
+  margin: 0 5px;
   &:hover {
     border: 0;
     background-color: #03ac0e;
     color: #ffffff;
+    cursor: pointer;
+  }
+`;
+
+export const CatchButton = css`
+  height: 48px;
+  color: #03ac0e;
+  background-color: #ffffff;
+  border: 1px solid #03ac0e;
+  border-radius: 8px;
+  padding: 0px 16px;
+  font-weight: 600;
+  font-size: 16px;
+  position: sticky;
+  bottom: 10px;
+  &:hover {
+    border: 0;
+    background-color: #03ac0e;
+    color: #ffffff;
+    cursor: pointer;
   }
 `;
 
 export const Tag = css`
+  background-color: #d6ffde;
+  border-radius: 3px;
   color: #03ac0e;
-  background-color: #ffffff;
-  border: 1px solid #03ac0e;
-  border-radius: 16px;
   margin: 0 5px 5px 0;
   padding: 5px;
   font-size: 11px;
+  font-weight: bold;
 `;
 
 export const PokeDetailSection = css`
@@ -138,7 +159,43 @@ export const TagFlex = css`
 
 export const Sprites = css`
   width: 100px;
-  @media (min-width: 300px) {
+  margin: 0 auto;
+  @media (min-width: 400px) {
     width: 300px;
   }
+`;
+
+export const ModalBlock = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: block;
+`;
+
+export const ModalNone = css`
+  display: none;
+`;
+
+export const ModalMain = css`
+  position: fixed;
+  background: white;
+  width: 80%;
+  height: auto;
+  padding: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const Input = css`
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 `;
