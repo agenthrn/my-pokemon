@@ -182,7 +182,7 @@ export const ModalNone = css`
 export const ModalMain = css`
   position: fixed;
   background: white;
-  width: 80%;
+  max-width: 600px;
   height: auto;
   padding: 10px;
   top: 50%;

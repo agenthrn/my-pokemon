@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router";
+import AppContext from "../context/AppContext";
 
 import {
   Heading,
@@ -12,22 +13,27 @@ import {
   TagFlex,
   Sprites,
 } from "../_style";
-import { GET_POKEMON } from "../_graphqlQuery";
 
-import { useQuery } from "@apollo/client";
 import CatchModal from "../components/CatchModal";
 
 function PokemonDetail() {
   let { name } = useParams();
 
+  const {
+    selectedPokemonData,
+    getPokemon,
+    loading,
+    setLoading
+  } = useContext(AppContext);
+
+  useEffect(() => {
+    setLoading(true);
+    getPokemon({ variables: { name: name } });
+  }, []);
+
   const [catchPoke, setCatchPoke] = useState(false);
   const [catchProcess, setCatchProcess] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-
-  const { loading, error, data } = useQuery(GET_POKEMON, {
-    fetchPolicy: "cache-and-network",
-    variables: { name: name },
-  });
 
   const hideModal = () => {
     setOpenModal(false);
@@ -50,31 +56,31 @@ function PokemonDetail() {
     <div>
       {loading && <div className={Loader}></div>}
 
-      {data?.pokemon && (
+      {!loading && selectedPokemonData && (
         <div className={Body}>
           <div className={PokeDetailSection}>
             <img
-              src={data?.pokemon?.sprites?.front_default}
-              alt={`image of ${data?.pokemon?.name}`}
+              src={selectedPokemonData?.sprites?.front_default}
+              alt={`image of ${selectedPokemonData?.name}`}
               className={Sprites}
             />
             <div>
-              <h1 className={Heading}>{data?.pokemon?.name}</h1>
+              <h1 className={Heading}>{selectedPokemonData?.name}</h1>
               <p className={SubHeading}>Types : </p>
               <div className={TagFlex}>
-                {data?.pokemon?.types?.map((type) => (
+                {selectedPokemonData?.types?.map((type) => (
                   <span className={Tag}>{type?.type?.name}</span>
                 ))}
               </div>
               <p className={SubHeading}>Abilities : </p>
               <div className={TagFlex}>
-                {data?.pokemon?.abilities?.map((ability) => (
+                {selectedPokemonData?.abilities?.map((ability) => (
                   <span className={Tag}>{ability?.ability?.name}</span>
                 ))}
               </div>
               <p className={SubHeading}>Moves : </p>
               <div className={TagFlex}>
-                {data?.pokemon?.moves?.map((move) => (
+                {selectedPokemonData?.moves?.map((move) => (
                   <span className={Tag}>{move?.move?.name}</span>
                 ))}
               </div>
@@ -93,7 +99,7 @@ function PokemonDetail() {
         show={openModal}
         handleClose={hideModal}
         status={catchPoke}
-        pokeData={data?.pokemon}
+        pokeData={selectedPokemonData}
       />
     </div>
   );
