@@ -1,5 +1,6 @@
 import {
   GET_POKEMON_DATA,
+  GET_MY_POKEMON_DATA,
   GET_POKEMON_DETAIL,
   SET_LOADING,
 } from "./AppTypes";
@@ -15,6 +16,12 @@ export default (state, { type, payload }) => {
       return {
         ...state,
         pokemonData: payload,
+        loading: false,
+      };
+    case GET_MY_POKEMON_DATA:
+      return {
+        ...state,
+        myPokemonData: payload,
         loading: false,
       };
     case GET_POKEMON_DETAIL:

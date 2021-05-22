@@ -12,19 +12,17 @@ import {
   Tag,
   TagFlex,
   Sprites,
+  Input,
+  Button,
 } from "../_style";
 
-import CatchModal from "../components/CatchModal";
+import Modal from "../components/Modal";
 
 function PokemonDetail() {
   let { name } = useParams();
 
-  const {
-    selectedPokemonData,
-    getPokemon,
-    loading,
-    setLoading
-  } = useContext(AppContext);
+  const { selectedPokemonData, getPokemon, loading, setLoading } =
+    useContext(AppContext);
 
   useEffect(() => {
     setLoading(true);
@@ -49,6 +47,28 @@ function PokemonDetail() {
       setCatchProcess(false);
       setCatchPoke(false);
       setOpenModal(true);
+    }
+  };
+
+  const [message, setMessage] = useState(null);
+
+  const [nickname, setNickname] = useState(null);
+
+  var myPokemon = localStorage.getItem("myPokemon") ? JSON.parse(localStorage.getItem("myPokemon")) : [];
+
+  const checkForNickname = () => {
+    var f;
+    var found = myPokemon?.some(function (item, index) {
+      f = index;
+      return item.nickname == nickname;
+    });
+
+    if (found) {
+      setMessage("Sorry, nickname already used. Use another one.");
+    } else {
+      myPokemon.push({ nickname: nickname, pokeData: selectedPokemonData });
+      localStorage.setItem("myPokemon", JSON.stringify(myPokemon));
+      hideModal();
     }
   };
 
@@ -95,12 +115,29 @@ function PokemonDetail() {
           </button>
         </div>
       )}
-      <CatchModal
+      <Modal
         show={openModal}
         handleClose={hideModal}
-        status={catchPoke}
-        pokeData={selectedPokemonData}
-      />
+      >
+        {message && <p>{message}</p>}
+        {catchPoke == true ? (
+          <div>
+            <p>Yey! You successfully catch the Pokemon. Give it name :</p>
+            <input
+              type="text"
+              className={Input}
+              onChange={(e) => setNickname(e.target.value)}
+            />
+          </div>
+        ) : (
+          <p>Sorry, Pokemon reject you</p>
+        )}
+        {catchPoke == true && (
+          <button className={Button} onClick={() => checkForNickname()}>
+            Save Pokemon
+          </button>
+        )}
+      </Modal>
     </div>
   );
 }

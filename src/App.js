@@ -4,6 +4,7 @@ import PokemonList from "./pages/PokemonList";
 import Menus from "./components/Menus";
 import PokemonDetail from "./pages/PokemonDetail";
 import AppState from "./context/AppState";
+import MyPokemonList from "./pages/MyPokemonList";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={PokemonList} />
             <Route exact path="/pokemon/:name" component={PokemonDetail} />
+            <Route exact path="/my-pokemon" component={MyPokemonList} />
           </Switch>
         </Router>
       </div>

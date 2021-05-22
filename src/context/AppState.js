@@ -8,6 +8,7 @@ import AppReducer from "./AppReducer";
 
 import {
   GET_POKEMON_DATA,
+  GET_MY_POKEMON_DATA,
   SET_LOADING,
   GET_POKEMON_DETAIL,
 } from "./AppTypes";
@@ -15,6 +16,7 @@ import {
 const AppState = ({ children }) => {
   const initialState = {
     pokemonData: [],
+    myPokemonData: [],
     loading: true,
     selectedPokemonData: {},
   };
@@ -40,6 +42,13 @@ const AppState = ({ children }) => {
     },
   });
 
+  const getMyPokemons = () => {
+    dispatch({
+      type: GET_MY_POKEMON_DATA,
+      payload: JSON.parse(localStorage.getItem("myPokemon")),
+    });
+  };
+
   const [
     getPokemon,
     {
@@ -57,17 +66,19 @@ const AppState = ({ children }) => {
     },
   });
 
-  const { pokemonData, loading, selectedPokemonData } = state;
+  const { pokemonData, myPokemonData, loading, selectedPokemonData } = state;
 
   return (
     <AppContext.Provider
       value={{
         getPokemons,
         getPokemon,
+        getMyPokemons,
+        myPokemonData,
         pokemonData,
         loading,
         selectedPokemonData,
-        setLoading
+        setLoading,
       }}
     >
       {children}

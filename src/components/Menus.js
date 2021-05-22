@@ -12,7 +12,7 @@ function Menus() {
           </h1>
         </li>
         <li className={MenuItem}>
-          <Link className={MenuLink} to="/">
+          <Link className={MenuLink} to="/my-pokemon">
             My Pokemon
           </Link>
         </li>

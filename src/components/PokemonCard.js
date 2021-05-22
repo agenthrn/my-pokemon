@@ -7,7 +7,7 @@ function PokemonCard({ image, name }) {
 
   const checkForSavedPokemon = (name) => {
     var f;
-    var found = myPokemon.filter((el) => el.pokeData.name === name);
+    var found = myPokemon?.filter((el) => el.pokeData.name === name);
 
     if (found) {
       return found.length;
