@@ -1,12 +1,18 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { PokeCard, PokeCardTitle, DeleteButton } from "../_style";
+import {
+  PokeCard,
+  PokeCardTitle,
+  DeleteButton,
+  PokemonCardImage,
+} from "../_style";
 import Modal from "../components/Modal";
 import AppContext from "../context/AppContext";
+import { Lazy } from "react-lazy";
 
 function MyPokemonCard({ image, name, nickname }) {
   const { myPokemonData, getMyPokemons } = useContext(AppContext);
-  
+
   const [openModal, setOpenModal] = useState(false);
 
   const hideModal = () => {
@@ -32,7 +38,13 @@ function MyPokemonCard({ image, name, nickname }) {
   return (
     <>
       <div className={PokeCard}>
-        <img src={image} alt={`Image of ${name}`} />
+        <Lazy ltIE9>
+          <img
+            className={PokemonCardImage}
+            src={image}
+            alt={`Image of ${name}`}
+          />
+        </Lazy>
         <Link to={`/pokemon/${name}`} className={PokeCardTitle}>
           {name}
         </Link>

@@ -1,7 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Heading, Loader, PokeList, Body, Button } from "../_style";
+import React, { useEffect, useContext } from "react";
+import { Heading, Loader, PokeList, Body } from "../_style";
 import AppContext from "../context/AppContext";
-import MyPokemonCard from "../components/MyPokemonCard";
+import Loadable from "react-loadable";
+
+const Loading = () => <p>Loading</p>;
+
+const MyPokemonCard = Loadable({
+  loader: () => import("../components/MyPokemonCard"),
+  loading: Loading,
+});
 
 function MyPokemonList() {
   const { myPokemonData, getMyPokemons, loading, setLoading } =

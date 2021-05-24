@@ -133,7 +133,7 @@ function PokemonDetail() {
           <p>Sorry, Pokemon reject you</p>
         )}
         {catchPoke == true && (
-          <button className={Button} onClick={() => checkForNickname()}>
+          <button className={Button} disabled={nickname==null} onClick={() => checkForNickname()}>
             Save Pokemon
           </button>
         )}

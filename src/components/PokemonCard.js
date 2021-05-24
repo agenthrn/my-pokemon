@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { PokeCard, PokeCardTitle } from "../_style";
+import { PokeCard, PokeCardTitle, PokemonCardImage } from "../_style";
+import { Lazy } from "react-lazy";
 
 function PokemonCard({ image, name }) {
+  
   var myPokemon = JSON.parse(localStorage.getItem("myPokemon"));
 
   const checkForSavedPokemon = (name) => {
@@ -18,7 +20,13 @@ function PokemonCard({ image, name }) {
 
   return (
     <div className={PokeCard}>
-      <img src={image} alt={`Image of ${name}`} />
+      <Lazy ltIE9>
+        <img
+          className={PokemonCardImage}
+          src={image}
+          alt={`Image of ${name}`}
+        />
+      </Lazy>
       <Link to={`/pokemon/${name}`} className={PokeCardTitle}>
         {name}
       </Link>

@@ -218,3 +218,8 @@ export const Input = css`
   border-radius: 4px;
   box-sizing: border-box;
 `;
+
+export const PokemonCardImage = css`
+  width: 150px;
+  height: 150px;
+`;
