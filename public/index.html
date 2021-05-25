@@ -20,13 +20,18 @@
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
-          navigator.serviceWorker.register("serviceWorker.js").then(
+          navigator.serviceWorker.register("/serviceWorker.js").then(
             function (registration) {
               // Registration was successful
               console.log(
                 "ServiceWorker registration successful with scope: ",
                 registration.scope
               );
+
+              if ('Notification' in window) {
+                Notification.requestPermission();
+              }
+
             },
             function (err) {
               // registration failed :(

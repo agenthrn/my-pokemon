@@ -1,15 +1,17 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import { PokeCard, PokeCardTitle, PokemonCardImage } from "../_style";
 import { Lazy } from "react-lazy";
+import AppContext from "../context/AppContext";
 
 function PokemonCard({ image, name }) {
-  
-  var myPokemon = JSON.parse(localStorage.getItem("myPokemon"));
+
+  const { myPokemonData } =
+    useContext(AppContext);
 
   const checkForSavedPokemon = (name) => {
     var f;
-    var found = myPokemon?.filter((el) => el.pokeData.name === name);
+    var found = myPokemonData?.filter((el) => el.pokeData.name === name);
 
     if (found) {
       return found.length;

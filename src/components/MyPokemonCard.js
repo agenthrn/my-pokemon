@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   PokeCard,
   PokeCardTitle,
+  SmallDeleteButton,
   DeleteButton,
   PokemonCardImage,
 } from "../_style";
@@ -31,6 +32,18 @@ function MyPokemonCard({ image, name, nickname }) {
       newMyPokemon.splice(f, f + 1);
       localStorage.setItem("myPokemon", JSON.stringify(newMyPokemon));
       getMyPokemons();
+      if (Notification.permission !== "granted")
+        Notification.requestPermission();
+      else {
+        const notification = new Notification("Congrats!", {
+          body: "You have successfully release pokemon from your pocket",
+          icon: "/pokeball.png",
+        });
+        notification.onclick = function () {
+          window.open("/my-pokemon");
+        };
+        navigator.setAppBadge(1);
+      }
       hideModal();
     }
   };
@@ -49,13 +62,13 @@ function MyPokemonCard({ image, name, nickname }) {
           {name}
         </Link>
         <p>{nickname}</p>
-        <button className={DeleteButton} onClick={() => setOpenModal(true)}>
+        <button className={SmallDeleteButton} onClick={() => setOpenModal(true)}>
           Release
         </button>
       </div>
       <Modal show={openModal} handleClose={hideModal}>
         <div>
-          <p>Are you really want to release this Pokemon ?</p>
+          <p>Are you really want to release this Pokemon ? This process cant be undone</p>
           <button
             className={DeleteButton}
             onClick={() => releasePokemon(nickname)}

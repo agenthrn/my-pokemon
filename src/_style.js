@@ -79,7 +79,6 @@ export const PokeCard = css`
   max-width: 500px;
   height:300px:
   padding: 10px;
-  margin: 0 0 16px 0;
   &:hover {
     background-color: rgb(243, 244, 245);
   }
@@ -111,6 +110,24 @@ export const Button = css`
 `;
 
 export const DeleteButton = css`
+  height: 48px;
+  color: rgb(239, 20, 74);;
+  background-color: #ffffff;
+  border: 1px solid rgb(239, 20, 74);
+  border-radius: 8px;
+  padding: 0px 16px;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 10px;
+  &:hover {
+    border: 0;
+    background-color: rgb(239, 20, 74);
+    color: #ffffff;
+    cursor: pointer;
+  }
+`;
+
+export const SmallDeleteButton = css`
   height: 24px;
   color: rgb(239, 20, 74);;
   background-color: #ffffff;
@@ -119,7 +136,7 @@ export const DeleteButton = css`
   padding: 0px 16px;
   font-weight: 600;
   font-size: 12px;
-  margin: 0 5px;
+  margin: 10px;
   &:hover {
     border: 0;
     background-color: rgb(239, 20, 74);

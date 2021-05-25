@@ -11,17 +11,21 @@ const PokemonCard = Loadable({
 });
 
 function PokemonList() {
-  const { pokemonData, getPokemons, loading, setLoading } =
+  const { pokemonData, getPokemons, loading, setLoading, getMyPokemons, myPokemonData } =
     useContext(AppContext);
+
   const [limit, setLimit] = useState(24);
 
   useEffect(() => {
+    setLoading(true);
+    getMyPokemons();
     getPokemons({ variables: { limit: limit, offset: 0 } });
   }, [limit]);
 
   return (
     <div>
       <h2 className={Heading}>List of Pokemon</h2>
+      <p>You have owned {myPokemonData.length} Pokemon</p>
 
       {loading && <div className={Loader}></div>}
 

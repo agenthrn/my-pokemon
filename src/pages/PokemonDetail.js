@@ -21,7 +21,7 @@ import Modal from "../components/Modal";
 function PokemonDetail() {
   let { name } = useParams();
 
-  const { selectedPokemonData, getPokemon, loading, setLoading } =
+  const { selectedPokemonData, getPokemon, loading, setLoading, setMessage, message } =
     useContext(AppContext);
 
   useEffect(() => {
@@ -35,6 +35,7 @@ function PokemonDetail() {
 
   const hideModal = () => {
     setOpenModal(false);
+    setMessage(null);
   };
 
   const catchPokemon = () => {
@@ -50,11 +51,11 @@ function PokemonDetail() {
     }
   };
 
-  const [message, setMessage] = useState(null);
-
   const [nickname, setNickname] = useState(null);
 
-  var myPokemon = localStorage.getItem("myPokemon") ? JSON.parse(localStorage.getItem("myPokemon")) : [];
+  var myPokemon = localStorage.getItem("myPokemon")
+    ? JSON.parse(localStorage.getItem("myPokemon"))
+    : [];
 
   const checkForNickname = () => {
     var f;
@@ -68,6 +69,19 @@ function PokemonDetail() {
     } else {
       myPokemon.push({ nickname: nickname, pokeData: selectedPokemonData });
       localStorage.setItem("myPokemon", JSON.stringify(myPokemon));
+      if (Notification.permission !== "granted")
+        Notification.requestPermission();
+      else {
+        const notification = new Notification("Congrats!", {
+          body: "You have successfully save pokemon to your pocket",
+          icon: "/pokeball.png",
+        });
+        notification.onclick = function () {
+          window.open("/my-pokemon");
+        };
+        navigator.setAppBadge(1);
+      }
+
       hideModal();
     }
   };
@@ -115,10 +129,7 @@ function PokemonDetail() {
           </button>
         </div>
       )}
-      <Modal
-        show={openModal}
-        handleClose={hideModal}
-      >
+      <Modal show={openModal} handleClose={hideModal}>
         {message && <p>{message}</p>}
         {catchPoke == true ? (
           <div>
@@ -133,7 +144,11 @@ function PokemonDetail() {
           <p>Sorry, Pokemon reject you</p>
         )}
         {catchPoke == true && (
-          <button className={Button} disabled={nickname==null} onClick={() => checkForNickname()}>
+          <button
+            className={Button}
+            disabled={nickname == null}
+            onClick={() => checkForNickname()}
+          >
             Save Pokemon
           </button>
         )}

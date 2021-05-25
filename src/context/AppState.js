@@ -11,6 +11,7 @@ import {
   GET_MY_POKEMON_DATA,
   SET_LOADING,
   GET_POKEMON_DETAIL,
+  SET_MESSAGE,
 } from "./AppTypes";
 
 const AppState = ({ children }) => {
@@ -19,12 +20,17 @@ const AppState = ({ children }) => {
     myPokemonData: [],
     loading: true,
     selectedPokemonData: {},
+    message: null,
   };
 
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   const setLoading = (payload) => {
     dispatch({ type: SET_LOADING, payload });
+  };
+
+  const setMessage = (payload) => {
+    dispatch({ type: SET_MESSAGE, payload });
   };
 
   const [
@@ -66,7 +72,7 @@ const AppState = ({ children }) => {
     },
   });
 
-  const { pokemonData, myPokemonData, loading, selectedPokemonData } = state;
+  const { pokemonData, myPokemonData, loading, selectedPokemonData, message } = state;
 
   return (
     <AppContext.Provider
@@ -74,11 +80,13 @@ const AppState = ({ children }) => {
         getPokemons,
         getPokemon,
         getMyPokemons,
+        setLoading,
+        setMessage,
         myPokemonData,
         pokemonData,
         loading,
         selectedPokemonData,
-        setLoading,
+        message
       }}
     >
       {children}
