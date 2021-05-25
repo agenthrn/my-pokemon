@@ -21,8 +21,14 @@ import Modal from "../components/Modal";
 function PokemonDetail() {
   let { name } = useParams();
 
-  const { selectedPokemonData, getPokemon, loading, setLoading, setMessage, message } =
-    useContext(AppContext);
+  const {
+    selectedPokemonData,
+    getPokemon,
+    loading,
+    setLoading,
+    setMessage,
+    message,
+  } = useContext(AppContext);
 
   useEffect(() => {
     setLoading(true);
@@ -35,7 +41,6 @@ function PokemonDetail() {
 
   const hideModal = () => {
     setOpenModal(false);
-    setMessage(null);
   };
 
   const catchPokemon = () => {
@@ -79,7 +84,9 @@ function PokemonDetail() {
         notification.onclick = function () {
           window.open("/my-pokemon");
         };
-        navigator.setAppBadge(1);
+        if ("setAppBadge" in navigator && "clearAppBadge" in navigator) {
+          navigator.setAppBadge(1);
+        }
       }
 
       hideModal();

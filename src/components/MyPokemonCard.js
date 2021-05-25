@@ -42,7 +42,9 @@ function MyPokemonCard({ image, name, nickname }) {
         notification.onclick = function () {
           window.open("/my-pokemon");
         };
-        navigator.setAppBadge(1);
+        if ("setAppBadge" in navigator && "clearAppBadge" in navigator) {
+          navigator.setAppBadge(1);
+        }
       }
       hideModal();
     }
@@ -62,13 +64,19 @@ function MyPokemonCard({ image, name, nickname }) {
           {name}
         </Link>
         <p>{nickname}</p>
-        <button className={SmallDeleteButton} onClick={() => setOpenModal(true)}>
+        <button
+          className={SmallDeleteButton}
+          onClick={() => setOpenModal(true)}
+        >
           Release
         </button>
       </div>
       <Modal show={openModal} handleClose={hideModal}>
         <div>
-          <p>Are you really want to release this Pokemon ? This process cant be undone</p>
+          <p>
+            Are you really want to release this Pokemon ? This process cant be
+            undone
+          </p>
           <button
             className={DeleteButton}
             onClick={() => releasePokemon(nickname)}
