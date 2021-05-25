@@ -40,6 +40,7 @@ function PokemonDetail() {
   const [openModal, setOpenModal] = useState(false);
 
   const hideModal = () => {
+    setMessage(false);
     setOpenModal(false);
   };
 
@@ -87,9 +88,8 @@ function PokemonDetail() {
         if ("setAppBadge" in navigator && "clearAppBadge" in navigator) {
           navigator.setAppBadge(1);
         }
+        hideModal();
       }
-
-      hideModal();
     }
   };
 
